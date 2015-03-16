@@ -1,0 +1,7 @@
+.project
+.settings
+.classpath
+.springBeans
+dbhome.h2.db.mv.db
+dependency-reduced-pom.xml
+target
