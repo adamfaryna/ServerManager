@@ -1,6 +1,7 @@
 package org.farynaa.servermanager;
 
 import java.io.Console;
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Arrays;
@@ -10,8 +11,11 @@ import java.util.Properties;
 
 import org.farynaa.servermanager.exception.ConfigFileNotExistsException;
 import org.farynaa.servermanager.exception.InvalidConfigFilenameSuffixException;
+import org.farynaa.servermanager.exception.TooManyStartParamsPassedException;
 import org.farynaa.servermanager.exception.console.AdditionalParametersRequired;
 import org.farynaa.servermanager.exception.console.InvalidParameterException;
+import org.farynaa.servermanager.exception.console.TooManyParametersPassedException;
+import org.farynaa.servermanager.exception.console.PassedServerFileParameterNotExists;
 import org.farynaa.servermanager.service.ServerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,29 +37,38 @@ public class Application {
 
 	private String[] args;
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
+	private static final Logger LOGGER = LoggerFactory
+			.getLogger(Application.class);
 
-	public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
+	public static void main(String[] args) throws ClassNotFoundException,
+			SQLException, IOException {
 		new Application(args).start();
 	}
 
-	public Application(String[] args) {
+	private Application(String[] args) {
 		this.args = args;
 	}
 
 	private void start() {
-		if (isOnlyPrintHelp()) {
-			showAppHelp();
-			return;
-		}
-
-		prepareAndInitSpringContext();
-		
 		try {
+			validateInputParamNumber();
+
+			if (isJustPrintHelp()) {
+				showAppHelp();
+				return;
+			}
+
+			prepareAndInitSpringContext();
 			startConsoleProcessing();
-			
+
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+		}
+	}
+
+	private void validateInputParamNumber() {
+		if (args.length > 1) {
+			throw new TooManyStartParamsPassedException();
 		}
 	}
 
@@ -72,12 +85,15 @@ public class Application {
 			} else if (isQuitCommand(command)) {
 				keepRunning = false;
 
-			} else  if (isListServersCommand(command)) {
-					listServersCommand();
-					
+			} else if (isListServersCommand(command)) {
+				listServersCommand();
+
+			} else if (isCountServersCommand(command)) {
+				countServersCommand();
+
 			} else {
 				List<String> commandParameters = extractCommandParameters(command);
-				
+
 				if (isAddServerCommand(command)) {
 					addServerCommand(commandParameters);
 
@@ -89,11 +105,16 @@ public class Application {
 
 				} else {
 					String message = String
-							.format("Invalid command '%s'. Type 'help' to get list of possible commands.", command);
+							.format("Invalid command '%s'. Type 'help' to get list of possible commands.",
+									command);
 					System.out.println(message);
 				}
 			}
 		}
+	}
+
+	private boolean isCountServersCommand(String command) {
+		return command.startsWith(ConsoleCommand.COUNT_SERVERS.getCommand());
 	}
 
 	private boolean isEditServerCommand(String command) {
@@ -122,12 +143,12 @@ public class Application {
 
 	private List<String> extractCommandParameters(String command) {
 		String[] splitedCommandString = command.split(" ");
-		List<String> commandParameters = Arrays.asList(splitedCommandString).subList(0, splitedCommandString.length);
+		List<String> commandParameters = Arrays.asList(splitedCommandString)
+				.subList(0, splitedCommandString.length);
 		return commandParameters;
 	}
-	
 
-	private boolean isOnlyPrintHelp() {
+	private boolean isJustPrintHelp() {
 		return isExtraParamPassed() && "help".equals(getExtraStartupParam());
 	}
 
@@ -141,12 +162,14 @@ public class Application {
 		}
 
 		if (!fileSystemResource.exists()) {
-			throw new ConfigFileNotExistsException(fileSystemResource.getFilename());
+			throw new ConfigFileNotExistsException(
+					fileSystemResource.getFilename());
 		}
 	}
 
 	private void prepareAndInitSpringContext() {
-		ClassPathResource defaultPropertiesResource = new ClassPathResource(DEFAULT_PROPERTIES);
+		ClassPathResource defaultPropertiesResource = new ClassPathResource(
+				DEFAULT_PROPERTIES);
 		defaultProperties = extractPropertiesFromResource(defaultPropertiesResource);
 
 		if (isExternalConfigFilenamePassed()) {
@@ -179,14 +202,16 @@ public class Application {
 
 	private void initSpringContext() {
 		applicationContext = new ClassPathXmlApplicationContext();
-		applicationContext.setConfigLocation(SPRING_APPLICATION_CONTEXT_XML_FILENAME);
+		applicationContext
+				.setConfigLocation(SPRING_APPLICATION_CONTEXT_XML_FILENAME);
 
 		updateSpringContextProperties();
 		applicationContext.refresh();
 	}
 
 	private void updateSpringContextProperties() {
-		Map<String, Object> systemProperties = applicationContext.getEnvironment().getSystemProperties();
+		Map<String, Object> systemProperties = applicationContext
+				.getEnvironment().getSystemProperties();
 		for (String prop : defaultProperties.stringPropertyNames()) {
 			systemProperties.put(prop, defaultProperties.getProperty(prop));
 		}
@@ -204,35 +229,42 @@ public class Application {
 		getServerService().listServers();
 	}
 
+	private void countServersCommand() {
+		getServerService().countServers();
+	}
+
 	private void editServerCommand(List<String> commandParameters) {
 		validateEditServerCommandParams(commandParameters);
-		
+
 		String serverIdString = commandParameters.get(0);
 		Long serverId = Long.valueOf(serverIdString);
 		String newServerName = commandParameters.get(1);
-		
+
 		getServerService().editServer(serverId, newServerName);
 		printEditServerCommandSuccessMessage(serverId, newServerName);
 	}
 
-	private void printEditServerCommandSuccessMessage(Long serverId, String newServerName) {
-		String message = String.format("Name of the server with id '%d' has been changed to '%s'.", serverId, newServerName);
-		System.out.println(message);	
+	private void printEditServerCommandSuccessMessage(Long serverId,
+			String newServerName) {
+		String message = String.format(
+				"Name of the server with id '%d' has been changed to '%s'.",
+				serverId, newServerName);
+		System.out.println(message);
 	}
 
 	private void validateEditServerCommandParams(List<String> commandParameters) {
 		if (commandParameters.size() != 2) {
 			throw new AdditionalParametersRequired();
 		}
-		
+
 		String serverIdCandidateString = commandParameters.get(0);
 		validateCorrectServerId(serverIdCandidateString);
 	}
-	
+
 	private void validateCorrectServerId(String serverIdCandidateString) {
 		try {
 			Long.valueOf(serverIdCandidateString);
-			
+
 		} catch (NumberFormatException e) {
 			throw new InvalidParameterException();
 		}
@@ -240,31 +272,56 @@ public class Application {
 
 	private void deleteServerCommand(List<String> commandParameters) {
 		validateDeleteServerCommandParams(commandParameters);
-		
+
 		String serverIdString = commandParameters.get(0);
 		Long serverId = Long.valueOf(serverIdString);
-		
+
 		getServerService().deleteServer(serverId);
 		printDeleteServerCommandSuccessMessage(serverId);
 	}
 
 	private void printDeleteServerCommandSuccessMessage(Long serverId) {
-		String message = String.format("Server with id '%s' has been deleted.", serverId);
+		String message = String.format("Server with id '%s' has been deleted.",
+				serverId);
 		System.out.println(message);
 	}
 
-	private void validateDeleteServerCommandParams(List<String> commandParameters) {
+	private void validateDeleteServerCommandParams(
+			List<String> commandParameters) {
 		if (commandParameters.size() == 0) {
 			throw new AdditionalParametersRequired();
 		}
-		
+
 		String serverIdCandidateString = commandParameters.get(0);
 		validateCorrectServerId(serverIdCandidateString);
 	}
 
 	private void addServerCommand(List<String> commandParameters) {
 		LOGGER.info("add server");
-		// TODO add
+
+		validateAddServerCommandParams(commandParameters);
+		
+		
+		
+	}
+
+	private void validateAddServerCommandParams(List<String> commandParameters) {
+		if (commandParameters.size() == 0) {
+			throw new AdditionalParametersRequired();
+		}
+		
+		if (commandParameters.size() > 1) {
+			throw new TooManyParametersPassedException();
+		}
+		
+		String serverFilenameCandidate = commandParameters.get(0);
+		File serverFileCandidate = new File(serverFilenameCandidate);
+		if (!serverFileCandidate.exists()) {
+			throw new PassedServerFileParameterNotExists();
+		}
+		
+		// validate schema
+		
 	}
 
 	private void showAppHelp() {
@@ -273,11 +330,10 @@ public class Application {
 				+ "Possible start options:\n"
 				+ "server-manager help - prints this help\n"
 				+ "server-manager properties-filename\n\n"
-				+ "example of properties file:"
+				+ "example of properties file:\n"
 				+ "database.filename: dbhome\n"
-				+ "database.name: database"
-				+ "database.user: dbuser"
-				+ "database.password: dbpass";
+				+ "database.name: database\n"
+				+ "database.user: dbuser\n" + "database.password: dbpass";
 		System.out.println(helpContent);
 	}
 

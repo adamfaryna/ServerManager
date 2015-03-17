@@ -7,12 +7,14 @@ package org.farynaa.servermanager.service;
  */
 public interface ServerService {
 
-	void addServer();
+	void addServer(String filename);
 	
 	void deleteServer(Long id);
 	
 	void editServer(Long id, String newName);
 	
 	void listServers();
+	
+	void countServers();
 	
 }

@@ -8,6 +8,8 @@ public interface ServerDAO {
 
 	List<Server> getAll();
 	
+	int count();
+	
 	Server get(Long id);
 	
 	void save(Server server);

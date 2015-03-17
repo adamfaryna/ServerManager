@@ -8,6 +8,7 @@ public enum ConsoleCommand {
 	HELP("help"),
 	QUIT("quit"),
 	LIST_SERVERS("listServers"),
+	COUNT_SERVERS("countServers"),
 	ADD_SERVER("addServer"),
 	DELETE_SERVER("deleteServer"),
 	EDIT_SERVER("editServer");

@@ -6,6 +6,7 @@ import org.farynaa.servermanager.dao.ServerDAO;
 import org.farynaa.servermanager.model.Server;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -19,6 +20,12 @@ public class ServerDAOImpl implements ServerDAO {
 	@Override
 	public List<Server> getAll() {
 		return (List<Server>) getCurrentSession().createCriteria(Server.class).list();
+	}
+	
+	@Override
+	public int count() {
+		Object result = getCurrentSession().createCriteria(Server.class).setProjection(Projections.rowCount()).uniqueResult();
+		return ((Number) result).intValue();
 	}
 
 	private Session getCurrentSession() {
@@ -39,5 +46,4 @@ public class ServerDAOImpl implements ServerDAO {
 	public void delete(Server server) {
 		getCurrentSession().delete(server);
 	}
-
 }
