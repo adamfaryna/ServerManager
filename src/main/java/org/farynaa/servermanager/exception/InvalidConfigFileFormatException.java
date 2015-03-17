@@ -4,7 +4,7 @@ package org.farynaa.servermanager.exception;
  * @author devil
  *
  */
-public class InvalidConfigFileFormat extends RuntimeException {
+public class InvalidConfigFileFormatException extends RuntimeException {
 
 	private static final String MESSAGE = "error: Invalid configuration file format.\n"
 			+ "Correct format is example: (from default configuration)\n"
@@ -15,7 +15,7 @@ public class InvalidConfigFileFormat extends RuntimeException {
 			+ "\n\n"
 			+ "Use 'manager help' to print information how to use program.\n";
 	
-	public InvalidConfigFileFormat() {
+	public InvalidConfigFileFormatException() {
 		super(MESSAGE);
 	}
 	

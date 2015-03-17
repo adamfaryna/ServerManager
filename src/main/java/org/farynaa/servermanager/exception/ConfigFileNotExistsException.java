@@ -4,7 +4,7 @@ package org.farynaa.servermanager.exception;
  * @author devil
  *
  */
-public class ConfigFileNotExists extends RuntimeException {
+public class ConfigFileNotExistsException extends RuntimeException {
 
 	/**
 	 * 
@@ -13,7 +13,7 @@ public class ConfigFileNotExists extends RuntimeException {
 	private static final String MESSAGE_TEMPLATE = "error: Configuration file '%s' doesn't exists.\n\n"
 			+ "Use 'manager help' to print information how to use program.\n";
 	
-	public ConfigFileNotExists(String configFilename) {
+	public ConfigFileNotExistsException(String configFilename) {
 		super(String.format(MESSAGE_TEMPLATE, configFilename));
 	}
 }
