@@ -5,8 +5,8 @@ import java.util.Arrays;
 
 import org.farynaa.servermanager.business.console.command.ConsoleCommandFactory;
 import org.farynaa.servermanager.business.console.command.strategy.ConsoleCommandStrategy;
-import org.farynaa.servermanager.business.exception.internal.AbstractInternalErrorException;
 import org.farynaa.servermanager.business.exception.validation.TooManyStartParamsPassedException;
+import org.farynaa.servermanager.business.exception.validation.console.AbstractConsoleException;
 
 public class Application {
 
@@ -46,9 +46,6 @@ public class Application {
 			showAppWelcomeText();
 			startConsoleProcessing();
 
-		} catch (AbstractInternalErrorException e) {
-			throw e;
-			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -60,11 +57,16 @@ public class Application {
 
 		while (keepRunning) {
 			String commandString = console.readLine(CONSOLE_PROMPT).trim();
-			String[] commandParameters = extractCommandParameters(commandString);
-
-			ConsoleCommandStrategy command = ConsoleCommandFactory.getStrategyForCommandName(commandString);
-			command.process(commandParameters);
-			keepRunning = command.isKeepConsoleRunning();
+			
+			try {
+				String[] commandParameters = extractCommandParameters(commandString);
+				ConsoleCommandStrategy command = ConsoleCommandFactory.getStrategyForCommandName(commandString);
+				command.process(commandParameters);
+				keepRunning = command.isKeepConsoleRunning();
+				
+			} catch (AbstractConsoleException e) {
+				System.out.println(e.getMessage());
+			}
 		}
 	}
 	
@@ -94,7 +96,7 @@ public class Application {
 	}
 
 	private String getExtraStartupParamIfExists() {
-		return isExtraParamPassed() ? null : args[0];
+		return isExtraParamPassed() ? args[0] : null;
 	}
 	
 	private void showAppHelp() {

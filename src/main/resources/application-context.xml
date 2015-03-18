@@ -11,8 +11,8 @@
 	
 	<context:annotation-config/>
 		
-	<context:component-scan base-package="org.farynaa.servermanager.dao"/>
-	<context:component-scan base-package="org.farynaa.servermanager.service"/>
+	<context:component-scan base-package="org.farynaa.servermanager.business.dao"/>
+	<context:component-scan base-package="org.farynaa.servermanager.business.service"/>
 
 	<bean class="org.farynaa.servermanager.SpringApplicationContextAccessor"/>
 

@@ -18,6 +18,8 @@ import org.farynaa.servermanager.business.model.xml.ServerXML;
 @Table(schema = "data")
 public class Server extends AbstractServer {
 
+	private static final long serialVersionUID = -5338967394486617231L;
+
 	public static Server createFromXML(ServerXML serverXML) {
 		return new DozerBeanMapper().map(serverXML, Server.class);
 	}

@@ -50,30 +50,15 @@ public class ServerServiceImpl implements ServerService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public void listServers() {
+	public List<Server> listServers() {
 		List<Server> servers = serverDAO.getAll();
-		String message = buildListServersMessage(servers);
-		System.out.println(message);
-	}
-
-	private String buildListServersMessage(List<Server> servers) {
-		String message = new String("Persisted servers:\n");
-		if (servers.size() == 0) {
-			message += "empty";
-			
-		} else {
-			for (Server server : servers) {
-				message += server.toString() + "\n";
-			}			
-		}
-		return message;
+		return servers;
 	}
 	
 	@Transactional(readOnly = true)
 	@Override
-	public void countServers() {
+	public int countServers() {
 		int count = serverDAO.count();
-		String message = String.format("There are '%d' servers saved in database.", count);
-		System.out.println(message);
+		return count;
 	}
 }

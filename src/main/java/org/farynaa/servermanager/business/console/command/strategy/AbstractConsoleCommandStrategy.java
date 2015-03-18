@@ -8,8 +8,7 @@ import org.farynaa.servermanager.business.service.ServerService;
  * @author devil
  *
  */
-public abstract class AbstractConsoleCommandStrategy implements
-		ConsoleCommandStrategy {
+public abstract class AbstractConsoleCommandStrategy implements ConsoleCommandStrategy {
 
 	@Override
 	public boolean isKeepConsoleRunning() {

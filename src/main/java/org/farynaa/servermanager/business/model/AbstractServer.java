@@ -1,5 +1,7 @@
 package org.farynaa.servermanager.business.model;
 
+import java.io.Serializable;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.farynaa.servermanager.business.model.entity.Server;
@@ -8,7 +10,9 @@ import org.farynaa.servermanager.business.model.entity.Server;
  * @author devil
  *
  */
-public abstract class AbstractServer {
+public abstract class AbstractServer implements Serializable {
+
+	private static final long serialVersionUID = -6824242982082058644L;
 
 	private Long id;
 
@@ -53,7 +57,7 @@ public abstract class AbstractServer {
 	@Override
 	public String toString() {
 		String string = "id: " + getObjectToStringSafe(getId());
-		string += "name:" + getObjectToStringSafe(getName());
+		string += " name:" + getObjectToStringSafe(getName());
 		return string;
 	}
 	

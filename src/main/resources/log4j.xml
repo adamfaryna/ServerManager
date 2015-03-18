@@ -6,26 +6,24 @@
 	<!-- Write logs to console output. -->
 	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
 		<param name="Target" value="System.out" />
-		<param name="Threshold" value="DEBUG" />
+		<param name="Threshold" value="INFO" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss.SSS}]%-5p[%t][%c{1}] %m%n" />
 		</layout>
 	</appender>
 
+<!-- 
 	<logger name="org.farynaa">
 		<level value="info" />
 	</logger>
-
 	<logger name="org.springframework">
 		<level value="info" />
 	</logger>
-
-	<logger name="org.hibernate">
-		<level value="info" />
-	</logger>
-
+ -->
+ 
+ 
 	<root>
-		<priority value="info"></priority>
+		<priority value="error"></priority>
 		<appender-ref ref="CONSOLE" />
 	</root>
 

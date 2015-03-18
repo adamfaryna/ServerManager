@@ -15,7 +15,7 @@ public class AddServerConsoleCommandStrategy extends AbstractConsoleCommandStrat
 	
 	@Override
 	public void process(String[] params) {
-		validateAddServerCommandParams(params);
+//		validateAddServerCommandParams(params);
 		
 		String serverSpecFilename = params[0];
 		getServerService().addServer(serverSpecFilename);

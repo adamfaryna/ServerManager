@@ -8,6 +8,12 @@ public class CountServersConsoleCommandStrategy extends AbstractConsoleCommandSt
 
 	@Override
 	public void process(String[] params) {
-		getServerService().countServers();
+		int count = getServerService().countServers();
+		printMessage(count);
+	}
+
+	private void printMessage(int count) {
+		String message = String.format("There are '%d' servers saved in database.", count);
+		System.out.println(message);
 	}
 }

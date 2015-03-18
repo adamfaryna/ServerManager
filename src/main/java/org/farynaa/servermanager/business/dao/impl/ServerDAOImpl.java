@@ -7,6 +7,7 @@ import org.farynaa.servermanager.business.model.entity.Server;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -25,7 +26,7 @@ public class ServerDAOImpl implements ServerDAO {
 	@Override
 	public int count() {
 		Object result = getCurrentSession().createCriteria(Server.class).setProjection(Projections.rowCount()).uniqueResult();
-		return ((Number) result).intValue();
+		return result == null ? 0 : ((Number) result).intValue();
 	}
 
 	private Session getCurrentSession() {

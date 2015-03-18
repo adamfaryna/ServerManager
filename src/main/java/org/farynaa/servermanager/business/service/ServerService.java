@@ -1,5 +1,9 @@
 package org.farynaa.servermanager.business.service;
 
+import java.util.List;
+
+import org.farynaa.servermanager.business.model.entity.Server;
+
 
 /**
  * @author devil
@@ -13,8 +17,8 @@ public interface ServerService {
 	
 	void editServer(Long id, String newName);
 	
-	void listServers();
+	List<Server> listServers();
 	
-	void countServers();
+	int countServers();
 	
 }

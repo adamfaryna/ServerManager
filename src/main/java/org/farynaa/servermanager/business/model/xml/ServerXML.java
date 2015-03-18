@@ -4,7 +4,7 @@ import java.io.File;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -15,18 +15,18 @@ import org.farynaa.servermanager.business.model.AbstractServer;
  * @author devil
  *
  */
-@XmlRootElement
+@XmlRootElement(name = "server")
 public class ServerXML extends AbstractServer {
+
+	private static final long serialVersionUID = 9129629164787090751L;
 
 	public static ServerXML createFromFile(String serverSpecFilename) {
 		try {
-			ServerXML serverXML = new ServerXML();
 			JAXBContext jaxbContext = JAXBContext.newInstance(ServerXML.class);
-			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-
+			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+			
 			File file = new File(serverSpecFilename);
-			jaxbMarshaller.marshal(serverXML, file);
-			return serverXML;
+			return (ServerXML) unmarshaller.unmarshal(file);
 			
 		} catch (JAXBException e) {
 			throw new XMLParseErrorException(e);

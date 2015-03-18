@@ -26,11 +26,12 @@ public enum ConsoleCommand {
 	}
 
 	public static ConsoleCommand getForString(String commandString) {
+		String commandStringSeparated = commandString.split(" ")[0];
 		for (ConsoleCommand command : values()) {
-			if (commandString.startsWith(command.getCommand())) {
+			if (commandStringSeparated.equals(command.getCommand())) {
 				return command;
 			}
 		}
-		throw new InvalidCommandException(commandString);
+		throw new InvalidCommandException(commandStringSeparated);
 	}
 }

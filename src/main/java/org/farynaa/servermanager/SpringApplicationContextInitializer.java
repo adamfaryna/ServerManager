@@ -59,7 +59,7 @@ public class SpringApplicationContextInitializer {
 	}
 
 	private boolean isExternalConfigFilenamePassed() {
-		return !extraParam.isEmpty();
+		return extraParam != null && !extraParam.isEmpty();
 	}
 	
 	private void initSpringContext() {
