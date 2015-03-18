@@ -3,7 +3,7 @@ package org.farynaa.servermanager;
 import java.io.Console;
 import java.util.Arrays;
 
-import org.farynaa.servermanager.business.console.command.strategy.ConsoleCommandFactory;
+import org.farynaa.servermanager.business.console.command.ConsoleCommandFactory;
 import org.farynaa.servermanager.business.console.command.strategy.ConsoleCommandStrategy;
 import org.farynaa.servermanager.business.exception.internal.AbstractInternalErrorException;
 import org.farynaa.servermanager.business.exception.validation.TooManyStartParamsPassedException;

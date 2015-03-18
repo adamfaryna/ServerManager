@@ -1,4 +1,4 @@
-package org.farynaa.servermanager.model.entity;
+package org.farynaa.servermanager.business.model.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,8 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.dozer.DozerBeanMapper;
-import org.farynaa.servermanager.model.AbstractServer;
-import org.farynaa.servermanager.model.xml.ServerXML;
+import org.farynaa.servermanager.business.model.AbstractServer;
+import org.farynaa.servermanager.business.model.xml.ServerXML;
 
 /**
  * @author devil

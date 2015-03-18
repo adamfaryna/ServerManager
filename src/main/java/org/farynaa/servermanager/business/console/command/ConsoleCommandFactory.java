@@ -1,9 +1,16 @@
-package org.farynaa.servermanager.business.console.command.strategy;
+package org.farynaa.servermanager.business.console.command;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.farynaa.servermanager.console.ConsoleCommand;
+import org.farynaa.servermanager.business.console.command.strategy.AddServerConsoleCommandStrategy;
+import org.farynaa.servermanager.business.console.command.strategy.ConsoleCommandStrategy;
+import org.farynaa.servermanager.business.console.command.strategy.CountServersConsoleCommandStrategy;
+import org.farynaa.servermanager.business.console.command.strategy.DeleteServerConsoleCommandStrategy;
+import org.farynaa.servermanager.business.console.command.strategy.EditServerConsoleCommandStrategy;
+import org.farynaa.servermanager.business.console.command.strategy.HelpConsoleCommandStrategy;
+import org.farynaa.servermanager.business.console.command.strategy.ListServersConsoleCommandStrategy;
+import org.farynaa.servermanager.business.console.command.strategy.QuitConsoleCommandStrategy;
 
 /**
  * @author devil

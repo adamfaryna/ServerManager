@@ -1,8 +1,8 @@
-package org.farynaa.servermanager.model;
+package org.farynaa.servermanager.business.model;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.farynaa.servermanager.model.entity.Server;
+import org.farynaa.servermanager.business.model.entity.Server;
 
 /**
  * @author devil

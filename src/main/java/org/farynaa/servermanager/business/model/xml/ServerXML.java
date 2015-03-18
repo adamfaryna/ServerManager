@@ -1,4 +1,4 @@
-package org.farynaa.servermanager.model.xml;
+package org.farynaa.servermanager.business.model.xml;
 
 import java.io.File;
 
@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.farynaa.servermanager.business.exception.internal.XMLParseErrorException;
-import org.farynaa.servermanager.model.AbstractServer;
+import org.farynaa.servermanager.business.model.AbstractServer;
 
 /**
  * @author devil

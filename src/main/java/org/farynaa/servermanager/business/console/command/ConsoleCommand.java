@@ -1,4 +1,4 @@
-package org.farynaa.servermanager.console;
+package org.farynaa.servermanager.business.console.command;
 
 import org.farynaa.servermanager.business.exception.validation.console.InvalidCommandException;
 

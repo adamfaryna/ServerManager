@@ -1,9 +1,9 @@
-package org.farynaa.servermanager.dao.impl;
+package org.farynaa.servermanager.business.dao.impl;
 
 import java.util.List;
 
-import org.farynaa.servermanager.dao.ServerDAO;
-import org.farynaa.servermanager.model.entity.Server;
+import org.farynaa.servermanager.business.dao.ServerDAO;
+import org.farynaa.servermanager.business.model.entity.Server;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;

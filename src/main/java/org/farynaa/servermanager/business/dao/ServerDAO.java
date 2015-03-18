@@ -1,8 +1,8 @@
-package org.farynaa.servermanager.dao;
+package org.farynaa.servermanager.business.dao;
 
 import java.util.List;
 
-import org.farynaa.servermanager.model.entity.Server;
+import org.farynaa.servermanager.business.model.entity.Server;
 
 public interface ServerDAO {
 
