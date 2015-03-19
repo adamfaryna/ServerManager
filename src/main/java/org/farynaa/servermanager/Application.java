@@ -8,6 +8,8 @@ import org.farynaa.servermanager.business.console.command.strategy.ConsoleComman
 import org.farynaa.servermanager.business.exception.internal.AbstractInternalErrorException;
 import org.farynaa.servermanager.business.exception.validation.bootstrap.TooManyStartParamsPassedException;
 import org.farynaa.servermanager.business.exception.validation.console.AbstractValidationConsoleException;
+import org.springframework.core.io.AbstractResource;
+import org.springframework.core.io.FileSystemResource;
 
 public class Application {
 
@@ -43,12 +45,24 @@ public class Application {
 				return;
 			}
 
-			SpringApplicationContextInitializer.initialize(getExtraStartupParamIfExists());
+			AbstractResource externalConfigResource = extractExternalConfigResourceFromStartParams();			
+			SpringApplicationContextInitializer.initialize(externalConfigResource);
 			showAppWelcomeText();
 			startConsoleProcessing();
 
 		} catch (AbstractInternalErrorException e) {
 			System.out.println(e.getMessage());
+		}
+	}
+
+	private AbstractResource extractExternalConfigResourceFromStartParams() {
+		String extraParam = getExtraStartupParamIfExists();
+		
+		if (extraParam == null) {
+			return null;
+			
+		} else {
+			return new FileSystemResource(getExtraStartupParamIfExists());
 		}
 	}
 	

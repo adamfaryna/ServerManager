@@ -4,16 +4,17 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.Properties;
 
-import org.farynaa.servermanager.business.exception.validation.bootstrap.ConfigFileNotExistsException;
+import org.farynaa.servermanager.business.exception.validation.bootstrap.PassedConfigFilenameForNotExistingException;
 import org.farynaa.servermanager.business.exception.validation.bootstrap.InvalidConfigFilenameSuffixException;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.AbstractResource;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 
 /**
- * Spring Application context initializer which merges default configuration with user defined configuration if it is present.
+ * Spring Application context initializer which merges default configuration
+ * with user defined configuration if it is present.
+ * 
  * @author adamfaryna@gmail.com
  */
 public class SpringApplicationContextInitializer {
@@ -22,59 +23,71 @@ public class SpringApplicationContextInitializer {
 	private static final String SPRING_APPLICATION_CONTEXT_XML_FILENAME = "application-context.xml";
 	private static final String DEFAULT_PROPERTIES = "default.properties";
 
-	private String extraParam;
+	private AbstractResource externalConfigFileResource;
 	private Properties defaultProperties;
 	private ClassPathXmlApplicationContext applicationContext;
-	
-	public static void initialize(String extraParam) {
-		new SpringApplicationContextInitializer(extraParam).prepareAndInitSpringContext();
+	private String additionalSpringConfigLocation;
+
+	public static void initialize(AbstractResource externalConfigResource) {
+		initialize(externalConfigResource, null);
 	}
 	
-	private SpringApplicationContextInitializer(String extraParam) {
-		this.extraParam = extraParam;
+	public static void initialize(AbstractResource externalConfigResource, String additionalSpringConfigFile) {
+		new SpringApplicationContextInitializer(externalConfigResource, additionalSpringConfigFile).prepareAndInitSpringContext();
 	}
-	
+
+	private SpringApplicationContextInitializer(
+			AbstractResource externalConfigResource,
+			String additionalSpringConfigFile) {
+		this.externalConfigFileResource = externalConfigResource;
+		this.additionalSpringConfigLocation = additionalSpringConfigFile;
+	}
+
 	private void prepareAndInitSpringContext() {
-		ClassPathResource defaultPropertiesResource = new ClassPathResource(DEFAULT_PROPERTIES);
+		ClassPathResource defaultPropertiesResource = new ClassPathResource(
+				DEFAULT_PROPERTIES);
 		defaultProperties = extractPropertiesFromResource(defaultPropertiesResource);
 
-		if (isExternalConfigFilenamePassed()) {
+		if (isExternalConfigPassed()) {
 			mergeUserAndDefaultConfig();
 		}
 
 		initSpringContext();
 	}
-	
+
 	private void mergeUserAndDefaultConfig() {
 		Properties userProperties = extractUserConfigProperties();
 		defaultProperties.putAll(userProperties);
 	}
-	
+
 	private Properties extractUserConfigProperties() {
-		FileSystemResource fileSystemResource = new FileSystemResource(getExtraParam());
-		validate(fileSystemResource);
-		Properties userProperties = extractPropertiesFromResource(fileSystemResource);
+		validateExternalConfigFileResource();
+		Properties userProperties = extractPropertiesFromResource(externalConfigFileResource);
 		return userProperties;
 	}
 
-	private boolean isExternalConfigFilenamePassed() {
-		return extraParam != null && !extraParam.isEmpty();
+	private boolean isExternalConfigPassed() {
+		return externalConfigFileResource != null;
 	}
-	
+
 	private void initSpringContext() {
 		applicationContext = new ClassPathXmlApplicationContext();
-		applicationContext.setConfigLocation(SPRING_APPLICATION_CONTEXT_XML_FILENAME);
-
+		applicationContext.setConfigLocation(getConfigLocations());
 		updateSpringContextProperties();
 		applicationContext.refresh();
 	}
 	
-	private String getExtraParam() {
-		return extraParam;
+	private String getConfigLocations() {
+		if (additionalSpringConfigLocation != null && !additionalSpringConfigLocation.isEmpty() ) {
+			return SPRING_APPLICATION_CONTEXT_XML_FILENAME + "," + additionalSpringConfigLocation;
+		} else {
+			return SPRING_APPLICATION_CONTEXT_XML_FILENAME;
+		}
 	}
-	
+
 	private void updateSpringContextProperties() {
-		Map<String, Object> systemProperties = applicationContext.getEnvironment().getSystemProperties();
+		Map<String, Object> systemProperties = applicationContext
+				.getEnvironment().getSystemProperties();
 		for (String prop : defaultProperties.stringPropertyNames()) {
 			systemProperties.put(prop, defaultProperties.getProperty(prop));
 		}
@@ -87,14 +100,13 @@ public class SpringApplicationContextInitializer {
 			throw new RuntimeException(e);
 		}
 	}
-	
-	private void validate(FileSystemResource fileSystemResource) {
-		if (!fileSystemResource.getFilename().endsWith(PROPERTIES_FILE_SUFFIX)) {
-			throw new InvalidConfigFilenameSuffixException();
-		}
 
-		if (!fileSystemResource.exists()) {
-			throw new ConfigFileNotExistsException(fileSystemResource.getFilename());
+	private void validateExternalConfigFileResource() {
+		if (!externalConfigFileResource.exists()) {
+			throw new PassedConfigFilenameForNotExistingException(externalConfigFileResource.getFilename());
+		}
+		if (!externalConfigFileResource.getFilename().endsWith(PROPERTIES_FILE_SUFFIX)) {
+			throw new InvalidConfigFilenameSuffixException();
 		}
 	}
 }
