@@ -10,7 +10,7 @@ public class InvalidSchemaFileErrorException extends AbstractInternalErrorExcept
 	
 	private static final String MESSAGE = "internal error: Internal Schema file is corrupted.";
 	
-	public InvalidSchemaFileErrorException(Exception exception) {
-		super(MESSAGE, exception);
+	public InvalidSchemaFileErrorException() {
+		super(MESSAGE);
 	}
 }

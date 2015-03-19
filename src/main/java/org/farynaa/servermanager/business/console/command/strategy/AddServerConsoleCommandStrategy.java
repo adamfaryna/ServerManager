@@ -2,7 +2,6 @@ package org.farynaa.servermanager.business.console.command.strategy;
 
 import java.io.File;
 
-import org.farynaa.servermanager.business.ServerXmlValidator;
 import org.farynaa.servermanager.business.exception.validation.console.AdditionalParametersRequired;
 import org.farynaa.servermanager.business.exception.validation.console.PassedServerFileParameterNotExists;
 import org.farynaa.servermanager.business.exception.validation.console.TooManyParametersPassedException;
@@ -15,7 +14,7 @@ public class AddServerConsoleCommandStrategy extends AbstractConsoleCommandStrat
 	
 	@Override
 	public void process(String[] params) {
-//		validateAddServerCommandParams(params);
+		validateAddServerCommandParams(params);
 		
 		String serverSpecFilename = params[0];
 		getServerService().addServer(serverSpecFilename);
@@ -36,8 +35,6 @@ public class AddServerConsoleCommandStrategy extends AbstractConsoleCommandStrat
 		if (!serverFileCandidate.exists()) {
 			throw new PassedServerFileParameterNotExists();
 		}
-		
-		ServerXmlValidator.validate(serverFilenameCandidate);
 	}
 	
 	private void printAddServerCommandSuccessMessage() {

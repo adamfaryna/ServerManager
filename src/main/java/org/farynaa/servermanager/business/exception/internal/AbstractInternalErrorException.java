@@ -8,7 +8,7 @@ public abstract class AbstractInternalErrorException extends RuntimeException {
 
 	private static final long serialVersionUID = -9116801148835741860L;
 	
-	protected AbstractInternalErrorException(String message, Exception exception) {
-		super(message, exception);
+	protected AbstractInternalErrorException(String message) {
+		super(message);
 	}
 }

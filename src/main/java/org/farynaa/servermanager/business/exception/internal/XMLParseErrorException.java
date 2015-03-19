@@ -8,9 +8,9 @@ public class XMLParseErrorException extends AbstractInternalErrorException {
 
 	private static final long serialVersionUID = -4901888079413561743L;
 	
-	private static final String MESSAGE = "internal error: XML parse error.";
+	private static final String MESSAGE_TEMPLATE = "internal error: XML parse error. %s";
 	
 	public XMLParseErrorException(Exception exception) {
-		super(MESSAGE, exception);
+		super(String.format(MESSAGE_TEMPLATE, exception.toString()));
 	}
 }
