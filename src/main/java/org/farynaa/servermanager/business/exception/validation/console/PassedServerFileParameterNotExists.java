@@ -2,10 +2,11 @@ package org.farynaa.servermanager.business.exception.validation.console;
 
 
 /**
- * @author devil
- *
+ * Console command validation error thrown when user pass server spec filename that not exists.
+ * 
+ * @author adamfaryna@gmail.com
  */
-public class PassedServerFileParameterNotExists extends AbstractConsoleException {
+public class PassedServerFileParameterNotExists extends AbstractValidationConsoleException {
 
 	private static final long serialVersionUID = 8074285769453347318L;
 	

@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.Properties;
 
-import org.farynaa.servermanager.business.exception.validation.ConfigFileNotExistsException;
-import org.farynaa.servermanager.business.exception.validation.InvalidConfigFilenameSuffixException;
+import org.farynaa.servermanager.business.exception.validation.bootstrap.ConfigFileNotExistsException;
+import org.farynaa.servermanager.business.exception.validation.bootstrap.InvalidConfigFilenameSuffixException;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.AbstractResource;
 import org.springframework.core.io.ClassPathResource;
@@ -13,8 +13,8 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 
 /**
- * @author devil
- *
+ * Spring Application context initializer which merges default configuration with user defined configuration if it is present.
+ * @author adamfaryna@gmail.com
  */
 public class SpringApplicationContextInitializer {
 
@@ -26,12 +26,11 @@ public class SpringApplicationContextInitializer {
 	private Properties defaultProperties;
 	private ClassPathXmlApplicationContext applicationContext;
 	
-	
 	public static void initialize(String extraParam) {
 		new SpringApplicationContextInitializer(extraParam).prepareAndInitSpringContext();
 	}
 	
-	public SpringApplicationContextInitializer(String extraParam) {
+	private SpringApplicationContextInitializer(String extraParam) {
 		this.extraParam = extraParam;
 	}
 	

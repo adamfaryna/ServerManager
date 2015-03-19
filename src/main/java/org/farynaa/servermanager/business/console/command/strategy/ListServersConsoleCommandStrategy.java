@@ -5,8 +5,9 @@ import java.util.List;
 import org.farynaa.servermanager.business.model.entity.Server;
 
 /**
- * @author devil
- *
+ * Implementation of {@link ConsoleCommandStrategy} for 'listServers' console command.
+ * 
+ * @author adamfaryna@gmail.com
  */
 public class ListServersConsoleCommandStrategy extends AbstractConsoleCommandStrategy {
 	

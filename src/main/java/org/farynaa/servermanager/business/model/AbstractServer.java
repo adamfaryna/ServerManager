@@ -7,8 +7,9 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.farynaa.servermanager.business.model.entity.Server;
 
 /**
- * @author devil
- *
+ * Abstract server representation.
+ * 
+ * @author adamfaryna@gmail.com
  */
 public abstract class AbstractServer implements Serializable {
 

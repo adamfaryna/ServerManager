@@ -2,10 +2,11 @@ package org.farynaa.servermanager.business.exception.validation.console;
 
 
 /**
- * @author devil
- *
+ * Console command validation error thrown when user try to pass invalid parameter to console command.
+ * 
+ * @author adamfaryna@gmail.com
  */
-public class InvalidParameterException extends AbstractConsoleException {
+public class InvalidParameterException extends AbstractValidationConsoleException {
 
 	private static final long serialVersionUID = -7267217789098931032L;
 	

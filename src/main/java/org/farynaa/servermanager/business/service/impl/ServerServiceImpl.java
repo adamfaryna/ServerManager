@@ -12,8 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * @author devil
- *
+ * Implementation of {@link ServerService}.
+ *  
+ * @author adamfaryna@gmail.com
  */
 @Service
 public class ServerServiceImpl implements ServerService {
@@ -44,6 +45,11 @@ public class ServerServiceImpl implements ServerService {
 	@Override
 	public void editServer(Long id, String newName) {
 		Server server = serverDAO.get(id);
+		
+		if (server == null) {
+			throw new NoServerOfIdInDatabaseException(id);
+		}
+		
 		server.setName(newName);
 		serverDAO.save(server);
 	}

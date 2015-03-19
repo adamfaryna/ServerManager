@@ -3,10 +3,12 @@ package org.farynaa.servermanager.business.console.command.strategy;
 import org.farynaa.servermanager.business.exception.validation.console.AdditionalParametersRequired;
 
 /**
- * @author devil
- *
+ * Implementation of {@link ConsoleCommandStrategy} for 'editServer' console command.
+ * 
+ * @author adamfaryna@gmail.com
  */
 public class EditServerConsoleCommandStrategy extends AbstractConsoleCommandStrategy {
+	
 	@Override
 	public void process(String[] params) {
 		validateEditServerCommandParams(params);
@@ -35,5 +37,4 @@ public class EditServerConsoleCommandStrategy extends AbstractConsoleCommandStra
 				serverId, newServerName);
 		System.out.println(message);
 	}
-
 }

@@ -2,10 +2,11 @@ package org.farynaa.servermanager.business.exception.validation.console;
 
 
 /**
- * @author devil
- *
+ * Console command validation error thrown when user pass too many parameters for console command.
+ * 
+ * @author adamfaryna@gmail.com
  */
-public class TooManyParametersPassedException extends AbstractConsoleException {
+public class TooManyParametersPassedException extends AbstractValidationConsoleException {
 
 	private static final long serialVersionUID = -5017681720867777688L;
 	

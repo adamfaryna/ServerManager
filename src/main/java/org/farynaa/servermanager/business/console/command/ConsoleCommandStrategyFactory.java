@@ -13,10 +13,11 @@ import org.farynaa.servermanager.business.console.command.strategy.ListServersCo
 import org.farynaa.servermanager.business.console.command.strategy.QuitConsoleCommandStrategy;
 
 /**
- * @author devil
- *
+ * Factory for generating processing strategies for console commands.
+ * 
+ * @author adamfaryna@gmail.com
  */
-public abstract class ConsoleCommandFactory {
+public abstract class ConsoleCommandStrategyFactory {
 
 	private static final Map<ConsoleCommand, ConsoleCommandStrategy> COMMAND_STRATEGY_MAPPING = new HashMap<ConsoleCommand, ConsoleCommandStrategy>(ConsoleCommand.values().length);
 	
@@ -35,7 +36,7 @@ public abstract class ConsoleCommandFactory {
 		return COMMAND_STRATEGY_MAPPING.get(command);
 	}
 
-	private ConsoleCommandFactory() {
+	private ConsoleCommandStrategyFactory() {
 		// do nothing
 	}
 }

@@ -7,10 +7,14 @@ import org.farynaa.servermanager.business.model.entity.Server;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+/**
+ * Implementation of {@link ServerDAO}.
+ * 
+ * @author adamfaryna@gmail.com
+ */
 @Repository
 public class ServerDAOImpl implements ServerDAO {
 

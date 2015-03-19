@@ -2,10 +2,11 @@ package org.farynaa.servermanager.business.exception.validation.console;
 
 
 /**
- * @author devil
- *
+ * Console command validation error thrown when user try to invoke not supported command.
+ * 
+ * @author adamfaryna@gmail.com
  */
-public class InvalidCommandException extends AbstractConsoleException {
+public class InvalidCommandException extends AbstractValidationConsoleException {
 
 	private static final long serialVersionUID = -4548094251168693025L;
 	

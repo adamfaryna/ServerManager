@@ -5,8 +5,9 @@ import org.farynaa.servermanager.business.exception.validation.console.InvalidPa
 import org.farynaa.servermanager.business.service.ServerService;
 
 /**
- * @author devil
- *
+ * Abstract implementation of {@link ConsoleCommandStrategy}.
+ * 
+ * @author adamfaryna@gmail.com
  */
 public abstract class AbstractConsoleCommandStrategy implements ConsoleCommandStrategy {
 

@@ -1,12 +1,12 @@
-package org.farynaa.servermanager.business.exception.validation;
+package org.farynaa.servermanager.business.exception.validation.bootstrap;
 
-import org.farynaa.servermanager.AppConstans;
 
 /**
- * @author devil
- *
+ * Bootstrap phase exception thrown when user pass config file with invalid format.
+ * 
+ * @author adamfaryna@gmail.com
  */
-public class InvalidConfigFileFormatException extends RuntimeException {
+public class InvalidConfigFileFormatException extends AbstractValidationBootstrapException {
 
 	private static final long serialVersionUID = -3308183275575627851L;
 	
@@ -17,7 +17,7 @@ public class InvalidConfigFileFormatException extends RuntimeException {
 			+ "database.user=dbuser\n"
 			+ "database.password=dbpassword\n"
 			+ "\n\n"
-			+ AppConstans.HELP_ADVICE_TEXT + "\n";
+			+ STANDARD_APP_USAGE_ADVICE;
 	
 	public InvalidConfigFileFormatException() {
 		super(MESSAGE);

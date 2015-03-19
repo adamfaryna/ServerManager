@@ -3,8 +3,9 @@ package org.farynaa.servermanager.business.console.command;
 import org.farynaa.servermanager.business.exception.validation.console.InvalidCommandException;
 
 /**
- * @author devil
- *
+ * Supported console commands.
+ * 
+ * @author adamfaryna@gmail.com
  */
 public enum ConsoleCommand {
 	HELP("help"),

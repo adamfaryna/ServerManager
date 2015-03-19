@@ -1,8 +1,9 @@
 package org.farynaa.servermanager.business.console.command.strategy;
 
 /**
- * @author devil
- *
+ * Implementation of {@link ConsoleCommandStrategy} for 'quit' console command.
+ * 
+ * @author adamfaryna@gmail.com
  */
 public class QuitConsoleCommandStrategy extends AbstractConsoleCommandStrategy {
 

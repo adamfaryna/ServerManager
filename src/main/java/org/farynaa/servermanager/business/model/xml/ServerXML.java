@@ -12,8 +12,9 @@ import org.farynaa.servermanager.business.exception.internal.XMLParseErrorExcept
 import org.farynaa.servermanager.business.model.AbstractServer;
 
 /**
- * @author devil
- *
+ * JAXB representation of {@link Server}.
+ * 
+ * @author adamfaryna@gmail.com
  */
 @XmlRootElement(name = "server", namespace = "http://www.opsource.net/simpleapp")
 public class ServerXML extends AbstractServer {
@@ -26,6 +27,9 @@ public class ServerXML extends AbstractServer {
 			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 			
 			File file = new File(serverSpecFilename);
+			/*
+			 * Validation of XML file is provided based on this POJO type.
+			 */
 			return (ServerXML) unmarshaller.unmarshal(file);
 			
 		} catch (JAXBException e) {

@@ -3,8 +3,9 @@ package org.farynaa.servermanager.business.console.command.strategy;
 import org.farynaa.servermanager.business.exception.validation.console.AdditionalParametersRequired;
 
 /**
- * @author devil
- *
+ * Implementation of {@link ConsoleCommandStrategy} for 'deleteServer' console command.
+ * 
+ * @author adamfaryna@gmail.com
  */
 public class DeleteServerConsoleCommandStrategy extends AbstractConsoleCommandStrategy {
 

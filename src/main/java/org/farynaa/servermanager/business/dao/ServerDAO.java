@@ -4,6 +4,11 @@ import java.util.List;
 
 import org.farynaa.servermanager.business.model.entity.Server;
 
+/**
+ * DAO for {@link Server}
+ * 
+ * @author adamfaryna@gmail.com
+ */
 public interface ServerDAO {
 
 	List<Server> getAll();

@@ -1,7 +1,7 @@
 package org.farynaa.servermanager.business.exception.internal;
 
 /**
- * @author devil
+ * @author adamfaryna@gmail.com
  *
  */
 public class XMLParseErrorException extends AbstractInternalErrorException {

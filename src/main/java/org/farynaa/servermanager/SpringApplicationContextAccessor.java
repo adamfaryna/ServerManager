@@ -5,8 +5,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
 /**
- * @author devil
- *
+ * Spring context accessor.
+ * 
+ * @author adamfaryna@gmail.com
  */
 public class SpringApplicationContextAccessor implements ApplicationContextAware {
 

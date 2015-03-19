@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * @author devil
+ * @author adamfaryna@gmail.com
  *
  */
 public class ApplicationTest {

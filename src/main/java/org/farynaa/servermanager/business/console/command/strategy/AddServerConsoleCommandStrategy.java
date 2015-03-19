@@ -7,8 +7,9 @@ import org.farynaa.servermanager.business.exception.validation.console.PassedSer
 import org.farynaa.servermanager.business.exception.validation.console.TooManyParametersPassedException;
 
 /**
- * @author devil
- *
+ * Implementation of {@link ConsoleCommandStrategy} for 'addServer' console command.
+ * 
+ * @author adamfaryna@gmail.com
  */
 public class AddServerConsoleCommandStrategy extends AbstractConsoleCommandStrategy {
 	

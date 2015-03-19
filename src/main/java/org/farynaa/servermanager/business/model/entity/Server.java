@@ -2,7 +2,6 @@ package org.farynaa.servermanager.business.model.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -11,8 +10,9 @@ import org.farynaa.servermanager.business.model.AbstractServer;
 import org.farynaa.servermanager.business.model.xml.ServerXML;
 
 /**
- * @author devil
- *
+ * Server JPA entity.
+ * 
+ * @author adamfaryna@gmail.com
  */
 @Entity
 @Table(schema = "data")
@@ -25,7 +25,6 @@ public class Server extends AbstractServer {
 	}
 	
 	@Id
-	@GeneratedValue
 	@Override
 	public Long getId() {
 		return super.getId();

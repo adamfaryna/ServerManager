@@ -1,8 +1,9 @@
 package org.farynaa.servermanager.business.exception.internal;
 
 /**
- * @author devil
- *
+ * Abstract {@link RuntimeException} type for internal errors.
+ * 
+ * @author adamfaryna@gmail.com
  */
 public abstract class AbstractInternalErrorException extends RuntimeException {
 

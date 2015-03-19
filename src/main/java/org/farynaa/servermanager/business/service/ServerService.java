@@ -6,8 +6,9 @@ import org.farynaa.servermanager.business.model.entity.Server;
 
 
 /**
- * @author devil
- *
+ * Service for operations on servers.
+ * 
+ * @author adamfaryna@gmail.com
  */
 public interface ServerService {
 

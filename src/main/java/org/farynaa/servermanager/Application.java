@@ -3,10 +3,11 @@ package org.farynaa.servermanager;
 import java.io.Console;
 import java.util.Arrays;
 
-import org.farynaa.servermanager.business.console.command.ConsoleCommandFactory;
+import org.farynaa.servermanager.business.console.command.ConsoleCommandStrategyFactory;
 import org.farynaa.servermanager.business.console.command.strategy.ConsoleCommandStrategy;
-import org.farynaa.servermanager.business.exception.validation.TooManyStartParamsPassedException;
-import org.farynaa.servermanager.business.exception.validation.console.AbstractConsoleException;
+import org.farynaa.servermanager.business.exception.internal.AbstractInternalErrorException;
+import org.farynaa.servermanager.business.exception.validation.bootstrap.TooManyStartParamsPassedException;
+import org.farynaa.servermanager.business.exception.validation.console.AbstractValidationConsoleException;
 
 public class Application {
 
@@ -46,7 +47,7 @@ public class Application {
 			showAppWelcomeText();
 			startConsoleProcessing();
 
-		} catch (Exception e) {
+		} catch (AbstractInternalErrorException e) {
 			System.out.println(e.getMessage());
 		}
 	}
@@ -60,11 +61,11 @@ public class Application {
 			
 			try {
 				String[] commandParameters = extractCommandParameters(commandString);
-				ConsoleCommandStrategy command = ConsoleCommandFactory.getStrategyForCommandName(commandString);
+				ConsoleCommandStrategy command = ConsoleCommandStrategyFactory.getStrategyForCommandName(commandString);
 				command.process(commandParameters);
 				keepRunning = command.isKeepConsoleRunning();
 				
-			} catch (AbstractConsoleException e) {
+			} catch (AbstractValidationConsoleException e) {
 				System.out.println(e.getMessage());
 			}
 		}
