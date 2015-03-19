@@ -15,7 +15,7 @@ import org.farynaa.servermanager.business.model.AbstractServer;
  * @author devil
  *
  */
-@XmlRootElement(name = "server")
+@XmlRootElement(name = "server", namespace = "http://www.opsource.net/simpleapp")
 public class ServerXML extends AbstractServer {
 
 	private static final long serialVersionUID = 9129629164787090751L;
