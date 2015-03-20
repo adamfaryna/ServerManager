@@ -1,5 +1,6 @@
 package org.farynaa.servermanager.business.service.impl;
 
+import java.io.InputStream;
 import java.util.List;
 
 import org.farynaa.servermanager.business.dao.ServerDAO;
@@ -25,8 +26,8 @@ public class ServerServiceImpl implements ServerService {
 	
 	@Transactional
 	@Override
-	public void addServer(String serverSpecFilename) {
-		ServerXML serverXML = ServerXML.createFromFile(serverSpecFilename);
+	public void addServer(InputStream serverSpecFile) {
+		ServerXML serverXML = ServerXML.createFromFile(serverSpecFile);
 		Server serverEntity = Server.createFromXML(serverXML);
 		serverDAO.save(serverEntity);
 	}

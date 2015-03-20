@@ -46,8 +46,7 @@ public abstract class AbstractServer implements Serializable {
 		}
 
 		Server otherServer = (Server) obj;
-		return new EqualsBuilder().appendSuper(super.equals(obj)).append(
-				getId(), otherServer.getId()).build();
+		return new EqualsBuilder().append(getId(), otherServer.getId()).build();
 	}
 
 	@Override
@@ -62,7 +61,7 @@ public abstract class AbstractServer implements Serializable {
 		return string;
 	}
 	
-	private String getObjectToStringSafe(Object obj) {
+	private static String getObjectToStringSafe(Object obj) {
 		return obj == null ? "" : obj.toString();
 	}
 }

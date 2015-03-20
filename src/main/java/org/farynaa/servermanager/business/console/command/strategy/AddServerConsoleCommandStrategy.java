@@ -1,6 +1,8 @@
 package org.farynaa.servermanager.business.console.command.strategy;
 
-import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 import org.farynaa.servermanager.business.exception.validation.console.AdditionalParametersRequired;
 import org.farynaa.servermanager.business.exception.validation.console.PassedServerFileParameterNotExists;
@@ -13,12 +15,17 @@ import org.farynaa.servermanager.business.exception.validation.console.TooManyPa
  */
 public class AddServerConsoleCommandStrategy extends AbstractConsoleCommandStrategy {
 	
+	private static final String SUCCESS_MESSAGE = "Server was persisted successfully.";
+
 	@Override
 	public void process(String[] params) {
 		validateAddServerCommandParams(params);
 		
-		String serverSpecFilename = params[0];
-		getServerService().addServer(serverSpecFilename);
+		String serverFilenameCandidate = params[0];
+		InputStream serverSpecFile = getSpecFileAsAInputStream(serverFilenameCandidate);
+		validateServerSpecFileExists(serverSpecFile);
+		
+		getServerService().addServer(serverSpecFile);
 		printAddServerCommandSuccessMessage();
 	}
 	
@@ -30,15 +37,28 @@ public class AddServerConsoleCommandStrategy extends AbstractConsoleCommandStrat
 		if (commandParameters.length > 1) {
 			throw new TooManyParametersPassedException();
 		}
-		
-		String serverFilenameCandidate = commandParameters[0];
-		File serverFileCandidate = new File(serverFilenameCandidate);
-		if (!serverFileCandidate.exists()) {
+	}
+
+	private void validateServerSpecFileExists(InputStream serverSpecFile) {
+		if (serverSpecFile == null) {
 			throw new PassedServerFileParameterNotExists();
 		}
 	}
+
+	private InputStream getSpecFileAsAInputStream(String serverSpecFileName) {
+		try {
+			return new FileInputStream(serverSpecFileName);
+			
+		} catch (FileNotFoundException e) {
+			return getSpecFileFromResources(serverSpecFileName);
+		}
+	}
 	
+	private InputStream getSpecFileFromResources(String serverSpecFileName) {
+		return AddServerConsoleCommandStrategy.class.getClassLoader().getResourceAsStream(serverSpecFileName);
+	}
+
 	private void printAddServerCommandSuccessMessage() {
-		System.out.println("Server was persisted successfully.");
+		System.out.println(SUCCESS_MESSAGE);
 	}
 }

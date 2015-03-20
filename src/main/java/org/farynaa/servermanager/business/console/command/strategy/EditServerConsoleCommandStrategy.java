@@ -1,6 +1,7 @@
 package org.farynaa.servermanager.business.console.command.strategy;
 
 import org.farynaa.servermanager.business.exception.validation.console.AdditionalParametersRequired;
+import org.farynaa.servermanager.business.exception.validation.console.TooManyParametersPassedException;
 
 /**
  * Implementation of {@link ConsoleCommandStrategy} for 'editServer' console command.
@@ -22,8 +23,11 @@ public class EditServerConsoleCommandStrategy extends AbstractConsoleCommandStra
 	}
 	
 	private void validateEditServerCommandParams(String[] commandParameters) {
-		if (commandParameters.length != 2) {
+		if (commandParameters.length < 2) {
 			throw new AdditionalParametersRequired();
+		}
+		if (commandParameters.length > 2) {
+			throw new TooManyParametersPassedException();
 		}
 
 		String serverIdCandidateString = commandParameters[0];

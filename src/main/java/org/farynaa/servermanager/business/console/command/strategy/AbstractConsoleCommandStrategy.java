@@ -11,13 +11,18 @@ import org.farynaa.servermanager.business.service.ServerService;
  */
 public abstract class AbstractConsoleCommandStrategy implements ConsoleCommandStrategy {
 
+	private ServerService serverService;
+	
 	@Override
 	public boolean isKeepConsoleRunning() {
 		return true;
 	}
 
 	protected ServerService getServerService() {
-		return SpringApplicationContextAccessor.getBean(ServerService.class);
+		if (serverService == null) {
+			serverService = SpringApplicationContextAccessor.getBean(ServerService.class);
+		}
+		return serverService;
 	}
 
 	protected void validateCorrectServerId(String serverIdCandidateString) {

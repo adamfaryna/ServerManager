@@ -1,5 +1,6 @@
 package org.farynaa.servermanager.business.service;
 
+import java.io.InputStream;
 import java.util.List;
 
 import org.farynaa.servermanager.business.model.entity.Server;
@@ -12,7 +13,7 @@ import org.farynaa.servermanager.business.model.entity.Server;
  */
 public interface ServerService {
 
-	void addServer(String filename);
+	void addServer(InputStream serverSpecFile);
 	
 	void deleteServer(Long id);
 	

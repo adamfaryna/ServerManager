@@ -11,6 +11,11 @@ import org.farynaa.servermanager.business.exception.validation.console.AbstractV
 import org.springframework.core.io.AbstractResource;
 import org.springframework.core.io.FileSystemResource;
 
+/**
+ * Main application class.
+ * 
+ * @author adamfaryna@gmail.com
+ */
 public class Application {
 
 	private static final String APP_HELP_CONTENT = "This application works in interactive mode. You can pass your config parameters in format of java properties file as shown below. "

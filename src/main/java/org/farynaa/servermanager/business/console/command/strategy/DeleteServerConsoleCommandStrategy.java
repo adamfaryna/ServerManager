@@ -1,6 +1,7 @@
 package org.farynaa.servermanager.business.console.command.strategy;
 
 import org.farynaa.servermanager.business.exception.validation.console.AdditionalParametersRequired;
+import org.farynaa.servermanager.business.exception.validation.console.TooManyParametersPassedException;
 
 /**
  * Implementation of {@link ConsoleCommandStrategy} for 'deleteServer' console command.
@@ -23,6 +24,10 @@ public class DeleteServerConsoleCommandStrategy extends AbstractConsoleCommandSt
 	private void validateDeleteServerCommandParams(String[] params) {
 		if (params.length == 0) {
 			throw new AdditionalParametersRequired();
+		}
+		
+		if (params.length > 1) {
+			throw new TooManyParametersPassedException();
 		}
 
 		String serverIdCandidateString = params[0];
