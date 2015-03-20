@@ -3,13 +3,13 @@ package org.farynaa.servermanager.business.service.impl;
 import java.io.InputStream;
 import java.util.List;
 
-import org.farynaa.servermanager.AbstractTestWithXML;
 import org.farynaa.servermanager.business.dao.ServerDAO;
 import org.farynaa.servermanager.business.exception.internal.XMLParseErrorException;
 import org.farynaa.servermanager.business.exception.validation.console.NoServerOfIdInDatabaseException;
 import org.farynaa.servermanager.business.exception.validation.console.PassedServerFileParameterNotExists;
 import org.farynaa.servermanager.business.model.entity.Server;
 import org.farynaa.servermanager.business.service.ServerService;
+import org.farynaa.servermanager.test.AbstractTestWithXML;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.After;

@@ -1,4 +1,4 @@
-package org.farynaa.servermanager;
+package org.farynaa.servermanager.test;
 
 import java.io.InputStream;
 

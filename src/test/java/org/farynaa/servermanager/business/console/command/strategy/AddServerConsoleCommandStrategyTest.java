@@ -1,10 +1,10 @@
 package org.farynaa.servermanager.business.console.command.strategy;
 
-import org.farynaa.servermanager.AbstractTestWithXML;
 import org.farynaa.servermanager.business.exception.validation.console.AdditionalParametersRequired;
 import org.farynaa.servermanager.business.exception.validation.console.PassedServerFileParameterNotExists;
 import org.farynaa.servermanager.business.exception.validation.console.TooManyParametersPassedException;
 import org.farynaa.servermanager.business.service.ServerService;
+import org.farynaa.servermanager.test.AbstractTestWithXML;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
